@@ -1,0 +1,140 @@
+:root{
+  --bg:#0B1220;
+  --panel:#111826f2;
+  --muted:#93a4bf;
+  --line:#22314d;
+  --brand:#22d3ee;
+  --brand-2:#7c3aed;
+  --user:#10b981;
+  --bot:#1f2937;
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif,system-ui,Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji;
+  color:#e5e7eb;
+  background: radial-gradient(1200px 600px at 80% -200px, #1b2340 0%, transparent 60%) , var(--bg);
+  overflow-x:hidden;
+}
+
+/* Background grid anime */
+.bg-grid{
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  filter: drop-shadow(0 0 30px rgba(124,58,237,.25));
+}
+
+/* Topbar */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(10px);
+  background:linear-gradient(90deg, rgba(17,24,39,.85), rgba(11,18,32,.6));
+  border-bottom:1px solid #22314d66;
+  padding:10px 16px;
+}
+.brand{display:flex;align-items:center;gap:12px;}
+.bot-avatar{width:52px; height:52px; border-radius:50%; overflow:hidden; flex:none; box-shadow:0 0 0 2px #22314d;}
+.title h1{margin:0;font-size:1.05rem;letter-spacing:.3px}
+.subtitle{margin:2px 0 0; color:var(--muted); font-size:.85rem}
+.icon-btn{
+  background:transparent; border:1px solid var(--line); color:#c7d2fe;
+  border-radius:12px; padding:8px 10px; cursor:pointer;
+  transition:.2s ease; margin-left:auto;
+}
+.icon-btn:hover{border-color:#4b6bff66; transform:translateY(-1px)}
+
+/* Layout */
+.container{max-width:980px; margin:28px auto; padding:0 16px}
+.chat-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow: 0 10px 40px #00000055, inset 0 0 0 1px #ffffff05;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Chat area */
+.chat-window{
+  height:min(66vh, 640px);
+  overflow:auto;
+  padding:18px 16px 8px;
+  display:flex; flex-direction:column; gap:14px;
+  scroll-behavior:smooth;
+}
+.msg{
+  display:flex; gap:10px; align-items:flex-start;
+  animation: pop .17s ease-out;
+}
+.msg .bubble{
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  max-width:min(680px, 85%);
+  white-space:pre-wrap; word-wrap:break-word;
+  line-height:1.5;
+}
+.msg.user{justify-content:flex-end}
+.msg.user .bubble{
+  background: linear-gradient(135deg, rgba(16,185,129,.12), rgba(34,211,238,.12));
+  border-color: #1f6d55;
+}
+.msg.bot .bubble{
+  background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(34,211,238,.10));
+  border-color: #3b2a79;
+}
+
+/* avatars */
+.avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex:none;border:1px solid var(--line)}
+.avatar.user{background: linear-gradient(135deg, #10b981, #22d3ee)}
+.avatar.bot{background: linear-gradient(135deg, #7c3aed, #22d3ee)}
+
+/* typing dots */
+.typing .dot{
+  width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:4px;
+  background:#c7d2fe; opacity:.6; animation: blink 1s infinite;
+}
+.typing .dot:nth-child(2){animation-delay:.15s}
+.typing .dot:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:1}}
+
+/* Input */
+.chat-form{border-top:1px solid var(--line); padding:10px; background:#0b1220cc}
+.input-wrap{
+  display:flex; align-items:flex-end; gap:10px; background:#0e1525; border:1px solid var(--line);
+  border-radius:12px; padding:8px 10px;
+}
+textarea{
+  flex:1; resize:none; background:transparent; color:#e5e7eb; border:none; outline:none;
+  max-height:140px; font-size:16px; line-height:1.45;
+}
+.send-btn{
+  border:none; cursor:pointer; border-radius:10px; padding:10px 12px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color:white; font-weight:700; transition: .2s ease; box-shadow: 0 6px 18px #00000077;
+}
+.send-btn:hover{transform: translateY(-1px)}
+.tip{margin-top:6px; color:var(--muted); font-size:.85rem}
+
+/* FAB (mobile) */
+.fab{
+  position:fixed; right:16px; bottom:16px; width:56px; height:56px; border-radius:50%;
+  border:none; color:white; cursor:pointer; z-index:60;
+  background:linear-gradient(135deg, var(--brand-2), var(--brand));
+  box-shadow: 0 10px 28px #0008; transition:.2s ease; display:none;
+}
+.fab:hover{transform:translateY(-2px)}
+
+/* Animations */
+@keyframes pop{from{transform:scale(.98); opacity:.0} to{transform:scale(1); opacity:1}}
+
+@media (max-width: 720px){
+  .chat-window{height:62vh}
+  .fab{display:block}
+}
